@@ -1,0 +1,26 @@
+{
+  "name": "http-api-assignment",
+  "version": "1.0.0",
+  "description": "A simple HTTP API",
+  "main": "/server.js",
+  "scripts": {
+    "start": "node ./src/server.js",
+    "pretest": "eslint ./src --fix",
+    "test": "echo \"Tests complete\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aeschwartz/http-api-assignment.git"
+  },
+  "author": "Andrew Schwartz",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/aeschwartz/http-api-assignment/issues"
+  },
+  "homepage": "https://github.com/aeschwartz/http-api-assignment#readme",
+  "devDependencies": {
+    "eslint": "^6.4.0",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-plugin-import": "^2.18.2"
+  }
+}
