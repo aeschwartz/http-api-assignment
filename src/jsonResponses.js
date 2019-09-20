@@ -23,14 +23,13 @@ const respond = (res, status, message, type) => {
     case 'application/json':
     default:
       res.writeHead(status, { 'Content-Type': 'application/json' });
-      const json = 
       res.write(JSON.stringify(
-        status === 200 ? { message } : 
-        {
-          message,
-          id: ids[status],
-        }
-        ));
+        status === 200 ? { message }
+          : {
+            message,
+            id: ids[status],
+          },
+      ));
       break;
   }
 
