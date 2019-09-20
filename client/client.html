@@ -6,7 +6,15 @@
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
   <script type="text/babel">
-
+    const ids = {
+      200: 'Success',
+      400: 'Bad Request',
+      401: 'Unauthorized',
+      403: 'Forbidden',
+      404: 'Not Found',
+      500: 'Internal Server Error',
+      501: 'Not Implemented',
+    };
 
     // code modified from accept header demo
 
@@ -19,6 +27,8 @@
     
       //grab the content section
       const content = document.querySelector("#content");
+
+      content.innerHTML = '' // clear current content
       
       //create h1 and p to hold our response data for the page
       const h1 = document.createElement('h1');
@@ -30,7 +40,7 @@
       if(xhr.responseType === 'json') {
         const obj = xhr.response;
         //add the json fields to our html elements
-        h1.textContent = `${obj.id}`;
+        h1.textContent = `${ids[xhr.status]}`;
         p.textContent = `Message: ${obj.message}`; 
       } //if response was in xml
       else if (xhr.responseType === 'document') {
@@ -42,7 +52,7 @@
           message: xhr.response.querySelector('message').textContent
         }
       
-        h1.textContent = `${obj.id}`;
+        h1.textContent = `${ids[xhr.status]}`;
         p.textContent = `Message: ${obj.message}`; 
       }
       
