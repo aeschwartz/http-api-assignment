@@ -18,18 +18,19 @@ const respond = (res, status, message, type) => {
     case 'application/xml':
     case 'text/xml':
       res.writeHead(status, { 'Content-Type': type });
-      res.write(`<response><message>${message}</message>${status === 200 ? "" : `<id>${ids[status]}</id></response>`}`);
+      res.write(`<response><message>${message}</message>${status === 200 ? '' : `<id>${ids[status]}</id></response>`}`);
       break;
     case 'application/json':
     default:
       res.writeHead(status, { 'Content-Type': 'application/json' });
-      const json = status === 200 ?
-        {message: message} :
+      const json = 
+      res.write(JSON.stringify(
+        status === 200 ? { message } : 
         {
-          message: message,
-          id: ids[status]
-        };
-      res.write(JSON.stringify(json));
+          message,
+          id: ids[status],
+        }
+        ));
       break;
   }
 
@@ -37,33 +38,33 @@ const respond = (res, status, message, type) => {
 };
 
 const success = (req, res, args) => {
-  respond(res, 200, "This is a successful response", args.type);
+  respond(res, 200, 'This is a successful response', args.type);
 };
 
 const badRequest = (req, res, args) => {
-  if (args.valid === 'true') respond(res, 200, "This request has the required parameters", args.type); // have to do === 'true' bc value is string, not boolean
-  else respond(res, 400, "Missing valid query parameter set to true", args.type);
+  if (args.valid === 'true') respond(res, 200, 'This request has the required parameters', args.type); // have to do === 'true' bc value is string, not boolean
+  else respond(res, 400, 'Missing valid query parameter set to true', args.type);
 };
 
 const unauthorized = (req, res, args) => {
-  if (args.loggedIn === 'yes') respond(res, 200, "You have successfully viewed the content", args.type);
-  else respond(res, 401, "Missing loggedIn query parameter set to yes", args.type);
+  if (args.loggedIn === 'yes') respond(res, 200, 'You have successfully viewed the content', args.type);
+  else respond(res, 401, 'Missing loggedIn query parameter set to yes', args.type);
 };
 
 const forbidden = (req, res, args) => {
-  respond(res, 403, "You do not have access to this content", args.type);
+  respond(res, 403, 'You do not have access to this content', args.type);
 };
 
 const internal = (req, res, args) => {
-  respond(res, 500, "Internal Server Error. Something went wrong.", args.type);
+  respond(res, 500, 'Internal Server Error. Something went wrong.', args.type);
 };
 
 const notImplemented = (req, res, args) => {
-  respond(res, 501, "A GET request for this page has not been implemented yet. Check again later for updated content.", args.type);
+  respond(res, 501, 'A GET request for this page has not been implemented yet. Check again later for updated content.', args.type);
 };
 
 const notFound = (req, res, args) => {
-  respond(res, 404, "The page you are looking for was not found.", args.type);
+  respond(res, 404, 'The page you are looking for was not found.', args.type);
 };
 module.exports = {
   respond,
